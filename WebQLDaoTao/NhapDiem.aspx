@@ -10,30 +10,37 @@
     </div>
 
     <asp:GridView ID="gvKetQua" runat="server" CssClass="table table-bordered"
-        AutoGenerateColumns="False" DataSourceID="odsKetQua" Width="70%" DataKeyNames="Id" ShowFooter="true">
+        AutoGenerateColumns="False" DataSourceID="odsKetQua" Width="70%" DataKeyNames="id" ShowFooter="true">
         <Columns>
             <asp:BoundField DataField="MaSV" HeaderText="Mã SV" SortExpression="MaSV" ReadOnly="true"></asp:BoundField>
+            <asp:BoundField DataField="hotensv" HeaderText="Họ tên SV" ></asp:BoundField>
             <asp:TemplateField HeaderText="Điểm">
                 <ItemTemplate>
                     <asp:TextBox ID="txtDiem" runat="server" Text='<%# Eval("Diem") %>' CssClass="form-control" Width="150px"></asp:TextBox>
+                    <asp:RangeValidator ID="rvDiem" runat="server" ErrorMessage="Điểm thi không hợp lệ"
+                        Text="(*)" ControlToValidate="txtDiem" MaximumValue="10" MinimumValue="0" 
+                        Type="Double" CssClass="text-danger"></asp:RangeValidator>
                 </ItemTemplate>
-
                 <FooterTemplate>
-                    <asp:Button ID="btLuu" runat="server" Text="Lưu điểm" />
+                    <asp:Button ID="btLuu" runat="server" Text="Lưu điểm" CssClass="btn btn-success" OnClick="btLuu_Click" />
                 </FooterTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Xóa">
+                <HeaderTemplate>
+                    <asp:CheckBox ID="ckAll" runat="server" Text="Chọn tất cả" AutoPostBack="true" OnCheckedChanged="ckAll_CheckedChanged"/>
+                </HeaderTemplate>
                 <ItemTemplate>
                     <asp:CheckBox ID="ckChon" runat="server" />
                 </ItemTemplate>
                 <FooterTemplate>
-                    <asp:Button ID="btXoa" runat="server" Text="Xóa" CssClass="btn btn-danger"/>
+                    <asp:Button ID="btXoa" runat="server" Text="Xóa" CssClass="btn btn-danger" OnClick="btXoa_Click"/>
                 </FooterTemplate>
             </asp:TemplateField>
         </Columns>
         <EmptyDataTemplate >
             <div class="alert alert-warning">Không có dữ liệu</div>
         </EmptyDataTemplate>
+        <HeaderStyle  BackColor="#87CEEB"/>
     </asp:GridView>
        
 
